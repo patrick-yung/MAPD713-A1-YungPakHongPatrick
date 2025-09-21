@@ -26,10 +26,6 @@ let restify = require('restify')
 server.use(restify.plugins.fullResponse());
 server.use(restify.plugins.bodyParser());
 
-let numberOfStudents = 0;
-let numberOfCourses = 0;
-let numberOfAssignments = 0;
-
 
 /************************************************************/
 // Delate a students/assignments/courses
@@ -37,7 +33,6 @@ server.del('/students/:id', function (req, res, next) {
   console.log('DEL /students params=>' + JSON.stringify(req.params));
   studentsSave.delete(req.params.id, function (error, user) {
     if (error) return next(new Error(JSON.stringify(error.errors)))
-    numberOfStudents--;
     res.send(204)
   })
 })
@@ -45,7 +40,6 @@ server.del('/courses/:id', function (req, res, next) {
   console.log('DEL /courses params=>' + JSON.stringify(req.params));
   coursesSave.delete(req.params.id, function (error, user) {
     if (error) return next(new Error(JSON.stringify(error.errors)))
-    numberOfCourses--;
     res.send(204)
   })
 })
@@ -54,7 +48,6 @@ server.del('/assignments/:id', function (req, res, next) {
   console.log('DEL /assignments params=>' + JSON.stringify(req.params));
   assignmentsSave.delete(req.params.id, function (error, user) {
     if (error) return next(new Error(JSON.stringify(error.errors)))
-    numberOfAssignments--;
     res.send(204)
   })
 })
@@ -135,7 +128,6 @@ server.post('/students', function (req, res, next) {
   numberOfStudents++;
 
   let newStudent = {
-    id: numberOfStudents,
     studentid: req.body.studentId,
     studentname: req.body.name,
     studentaddress: req.body.address,
@@ -161,7 +153,6 @@ server.post('/courses', function (req, res, next) {
   numberOfCourses++;
 
   let newCourse = {
-    id: numberOfCourses,
     courseCode: req.body.courseCode,
     shortDescription: req.body.shortDescription,
     fullDescription: req.body.fullDescription 
@@ -186,7 +177,6 @@ server.post('/assignments', function (req, res, next) {
   numberOfAssignments++;
 
   let newAssignment = {
-    id: numberOfAssignments,
     courseCode: req.body.assignmentCode,
     dueDate: req.body.dueDate,
     title: req.body.title 
