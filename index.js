@@ -27,6 +27,45 @@ server.use(restify.plugins.fullResponse());
 server.use(restify.plugins.bodyParser());
 
 /************************************************************/
+// Get a students/assignments/courses
+
+server.get('/students/id', (req, res, next) => {
+  console.log('GET /students/:id params=>' + JSON.stringify(req.params));
+  studentsSave.findOne({ _id: req.params.id }, function (error, user) {
+    if (error) return next(new Error(JSON.stringify(error.errors)))
+    if (user) {
+      res.send(user)
+    } else {
+      res.send(404)
+    }
+  })
+})
+
+server.get('/courses/id', (req, res, next) => {
+  console.log('GET /courses/:id params=>' + JSON.stringify(req.params));
+  coursesSave.findOne({ _id: req.params.id }, function (error, user) {
+    if (error) return next(new Error(JSON.stringify(error.errors)))
+    if (user) {
+      res.send(user)
+    } else {
+      res.send(404)
+    }
+  })
+})
+
+server.get('/assignments/id', (req, res, next) => {
+  console.log('GET /assignments/:id params=>' + JSON.stringify(req.params));
+  assignmentsSave.findOne({ _id: req.params.id }, function (error, user) {
+    if (error) return next(new Error(JSON.stringify(error.errors)))
+    if (user) {
+      res.send(user)
+    } else {
+      res.send(404)
+    }
+  })
+})
+
+/************************************************************/
 
 
 // Get a list of all students/assignments/courses
@@ -38,13 +77,13 @@ server.get('/students', (req, res, next) => {
 })
 
 server.get('/courses', (req, res, next) => {
-  console.log('GET /students params=>' + JSON.stringify(req.params));
+  console.log('GET /courses params=>' + JSON.stringify(req.params));
   coursesSave.find({}, function (error, users) {
     res.send(users)
   })
 })
-server.get('/assignment', (req, res, next) => {
-  console.log('GET /students params=>' + JSON.stringify(req.params));
+server.get('/assignments', (req, res, next) => {
+  console.log('GET /assignment params=>' + JSON.stringify(req.params));
   assignmentsSave.find({}, function (error, users) {
     res.send(users)
   })
@@ -77,7 +116,6 @@ server.post('/students', function (req, res, next) {
     studentaddress: req.body.address,
     studentphone: req.body.phone
   }
-  console.log('Final Stage');
 
   studentsSave.create( newStudent, function (error, user) {
   if (error) return next(new Error(JSON.stringify(error.errors)))
