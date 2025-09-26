@@ -149,7 +149,6 @@ server.post('/courses', function (req, res, next) {
     return next(new errors.BadRequestError('course fullDescription must be supplied'))
   }
  
-  numberOfCourses++;
 
   let newCourse = {
     courseCode: req.body.courseCode,
@@ -172,8 +171,6 @@ server.post('/assignments', function (req, res, next) {
   } else if (req.body.title === undefined ) {
     return next(new errors.BadRequestError('assignment title must be supplied'))
   }
-
-  numberOfAssignments++;
 
   let newAssignment = {
     courseCode: req.body.assignmentCode,
