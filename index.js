@@ -174,7 +174,7 @@ server.post('/assignments', function (req, res, next) {
 
   let newAssignment = {
     assignmentCode: req.body.assignmentCode,
-    courseCode: req.body.assignmentCode,
+    courseCode: req.body.courseCode,
     dueDate: req.body.dueDate,
     title: req.body.title 
   }
