@@ -125,13 +125,12 @@ server.post('/students', function (req, res, next) {
     return next(new errors.BadRequestError('student phone must be supplied'))
   }
 
-  numberOfStudents++;
 
   let newStudent = {
-    studentid: req.body.studentId,
-    studentname: req.body.name,
-    studentaddress: req.body.address,
-    studentphone: req.body.phone
+    studentID: req.body.studentId,
+    studentName: req.body.name,
+    studentAddress: req.body.address,
+    studentPhone: req.body.phone
   }
 
   studentsSave.create( newStudent, function (error, user) {
