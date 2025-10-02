@@ -5,6 +5,24 @@ let HOST = '127.0.0.1';
 let errors = require('restify-errors');
 let restify = require('restify')
 
+let getStudentsCount = 0
+let getCoursesCount = 0
+let getAssignmentsCount = 0
+
+let postStudentsCount = 0
+let postCoursesCount = 0
+let postAssignmentsCount = 0
+
+let delStudentsCount = 0
+let delCoursesCount = 0
+let delAssignmentsCount = 0
+
+let getStudentsListCount = 0
+let getCoursesListCount = 0
+let getAssignmentsListCount = 0
+
+
+
   // Get a persistence engine for the users
   , studentsSave = require('save')('students')
   , coursesSave = require('save')('courses')
@@ -31,6 +49,7 @@ server.use(restify.plugins.bodyParser());
 // Delate a students/assignments/courses
 server.del('/students/:id', function (req, res, next) {
   console.log('DEL /students params=>' + JSON.stringify(req.params));
+  delStudentsCount++
   studentsSave.delete(req.params.id, function (error, user) {
     if (error) return next(new Error(JSON.stringify(error.errors)))
     res.send(204)
@@ -38,6 +57,7 @@ server.del('/students/:id', function (req, res, next) {
 })
 server.del('/courses/:id', function (req, res, next) {
   console.log('DEL /courses params=>' + JSON.stringify(req.params));
+  delCoursesCount++
   coursesSave.delete(req.params.id, function (error, user) {
     if (error) return next(new Error(JSON.stringify(error.errors)))
     res.send(204)
@@ -46,6 +66,7 @@ server.del('/courses/:id', function (req, res, next) {
 
 server.del('/assignments/:id', function (req, res, next) {
   console.log('DEL /assignments params=>' + JSON.stringify(req.params));
+  delAssignmentsCount++
   assignmentsSave.delete(req.params.id, function (error, user) {
     if (error) return next(new Error(JSON.stringify(error.errors)))
     res.send(204)
@@ -56,6 +77,7 @@ server.del('/assignments/:id', function (req, res, next) {
 // Get a students/assignments/courses
 server.get('/students/id', (req, res, next) => {
   console.log('GET /students/:id params=>' + JSON.stringify(req.params));
+  getStudentsCount++
   studentsSave.findOne({ _id: req.params.id }, function (error, user) {
     if (error) return next(new Error(JSON.stringify(error.errors)))
     if (user) {
@@ -68,6 +90,7 @@ server.get('/students/id', (req, res, next) => {
 
 server.get('/courses/id', (req, res, next) => {
   console.log('GET /courses/:id params=>' + JSON.stringify(req.params));
+  getCoursesCount++
   coursesSave.findOne({ _id: req.params.id }, function (error, user) {
     if (error) return next(new Error(JSON.stringify(error.errors)))
     if (user) {
@@ -80,6 +103,7 @@ server.get('/courses/id', (req, res, next) => {
 
 server.get('/assignments/id', (req, res, next) => {
   console.log('GET /assignments/:id params=>' + JSON.stringify(req.params));
+  getAssignmentsCount++
   assignmentsSave.findOne({ _id: req.params.id }, function (error, user) {
     if (error) return next(new Error(JSON.stringify(error.errors)))
     if (user) {
@@ -93,6 +117,7 @@ server.get('/assignments/id', (req, res, next) => {
 /************************************************************/
 // Get a list of all students/assignments/courses
 server.get('/students', (req, res, next) => {
+  getStudentsListCount++
   console.log('GET /students params=>' + JSON.stringify(req.params));
   studentsSave.find({}, function (error, users) {
     res.send(users)
@@ -100,12 +125,14 @@ server.get('/students', (req, res, next) => {
 })
 
 server.get('/courses', (req, res, next) => {
+  getCoursesListCount++
   console.log('GET /courses params=>' + JSON.stringify(req.params));
   coursesSave.find({}, function (error, users) {
     res.send(users)
   })
 })
 server.get('/assignments', (req, res, next) => {
+  getAssignmentsListCount++
   console.log('GET /assignment params=>' + JSON.stringify(req.params));
   assignmentsSave.find({}, function (error, users) {
     res.send(users)
@@ -115,6 +142,7 @@ server.get('/assignments', (req, res, next) => {
 // Create a new student/course/assignment user
 server.post('/students', function (req, res, next) {
   console.log('POST /students body=>' + JSON.stringify(req.body));
+  postStudentsCount++
   if( req.body.studentId === undefined ) {
     return next(new errors.BadRequestError('student id must be supplied'))
   } else if (req.body.name === undefined) {
@@ -141,6 +169,7 @@ server.post('/students', function (req, res, next) {
 
 server.post('/courses', function (req, res, next) {
   console.log('POST /courses body=>' + JSON.stringify(req.body));
+  postCoursesCount++
   if (req.body.courseCode === undefined ) {
     return next(new errors.BadRequestError('course id must be supplied'))
   }else if (req.body.shortDescription === undefined ) {
@@ -164,6 +193,7 @@ server.post('/courses', function (req, res, next) {
 
 server.post('/assignments', function (req, res, next) {
   console.log('POST /assignments body=>' + JSON.stringify(req.body));
+  postAssignmentsCount++
   if (req.body.assignmentCode === undefined ) {
     return next(new errors.BadRequestError('assignment id must be supplied'))
   } else if (req.body.dueDate === undefined ) {
@@ -185,6 +215,30 @@ server.post('/assignments', function (req, res, next) {
 })
 
 /************************************************************/
+
+
+server.put('/info', function (req, res, next) { 
+    console.log('INFO body=>' + JSON.stringify(req.body));
+    res.status(200).send({
+      "Number of Students ID Get Request": getStudentsCount,
+      "Number of Courses ID Get Request": getCoursesCount,
+      "Number of Assignments ID Get Request": getAssignmentsCount,
+      "Number of Students Post Request": postStudentsCount,
+      "Number of Course Post Request": postCoursesCount,
+      "Number of Assignments Post Request": postAssignmentsCount,
+      "Number of Students Delete Request": delStudentsCount,
+      "Number of Courses Delete Request": delCoursesCount,
+      "Number of Assignments Delete Request": delAssignmentsCount,
+      "Number of Students Assignments Request": getStudentsListCount,
+      "Number of Course Request": getCoursesListCount,
+      "Number of Assignments Request": getAssignmentsListCount
+    }) 
+
+})
+
+
+/************************************************************/
+
 
 
 // Update a user by their id
