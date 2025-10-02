@@ -75,7 +75,7 @@ server.del('/assignments/:id', function (req, res, next) {
 
 /************************************************************/
 // Get a students/assignments/courses
-server.get('/students/id', (req, res, next) => {
+server.get('/students/:id', (req, res, next) => {
   console.log('GET /students/:id params=>' + JSON.stringify(req.params));
   getStudentsCount++
   studentsSave.findOne({ _id: req.params.id }, function (error, user) {
@@ -88,7 +88,7 @@ server.get('/students/id', (req, res, next) => {
   })
 })
 
-server.get('/courses/id', (req, res, next) => {
+server.get('/courses/:id', (req, res, next) => {
   console.log('GET /courses/:id params=>' + JSON.stringify(req.params));
   getCoursesCount++
   coursesSave.findOne({ _id: req.params.id }, function (error, user) {
@@ -101,7 +101,7 @@ server.get('/courses/id', (req, res, next) => {
   })
 })
 
-server.get('/assignments/id', (req, res, next) => {
+server.get('/assignments/:id', (req, res, next) => {
   console.log('GET /assignments/:id params=>' + JSON.stringify(req.params));
   getAssignmentsCount++
   assignmentsSave.findOne({ _id: req.params.id }, function (error, user) {
@@ -219,7 +219,7 @@ server.post('/assignments', function (req, res, next) {
 
 server.get('/info', function (req, res, next) { 
     console.log('INFO body=>' + JSON.stringify(req.body));
-    res.status(200).send({
+    res.send(200,{
       "Number of Students ID Get Request": getStudentsCount,
       "Number of Courses ID Get Request": getCoursesCount,
       "Number of Assignments ID Get Request": getAssignmentsCount,
