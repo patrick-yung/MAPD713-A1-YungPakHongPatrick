@@ -217,7 +217,7 @@ server.post('/assignments', function (req, res, next) {
 /************************************************************/
 
 
-server.put('/info', function (req, res, next) { 
+server.get('/info', function (req, res, next) { 
     console.log('INFO body=>' + JSON.stringify(req.body));
     res.status(200).send({
       "Number of Students ID Get Request": getStudentsCount,
