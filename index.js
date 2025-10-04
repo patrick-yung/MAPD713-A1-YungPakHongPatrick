@@ -214,7 +214,10 @@ server.post('/assignments', function (req, res, next) {
   if (req.body.assignmentCode === undefined ) {
     console.log('missing argument assignment id');
     return next(new errors.BadRequestError('assignment id must be supplied'))
-  } else if (req.body.dueDate === undefined ) {
+  } else if (req.body.courseCode === undefined ) {
+    console.log('missing argument assignment courseCode');
+    return next(new errors.BadRequestError('assignment courseCode must be supplied'))
+  }else if (req.body.dueDate === undefined ) {
     console.log('missing argument assignment duedate');
     return next(new errors.BadRequestError('assignment dueDate must be supplied'))
   } else if (req.body.title === undefined ) {
