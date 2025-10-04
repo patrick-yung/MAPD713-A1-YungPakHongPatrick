@@ -144,12 +144,16 @@ server.post('/students', function (req, res, next) {
   console.log('POST /students body=>' + JSON.stringify(req.body));
   postStudentsCount++
   if( req.body.studentId === undefined ) {
+    console.log('missing argument student id');
     return next(new errors.BadRequestError('student id must be supplied'))
   } else if (req.body.name === undefined) {
+    console.log('missing argument student name');
     return next(new errors.BadRequestError('student name must be supplied'))
   } else if (req.body.address === undefined) {
+    console.log('missing argument student address');
     return next(new errors.BadRequestError('student address must be supplied'))
   }else if (req.body.phone === undefined) {
+    console.log('missing argument student phone');
     return next(new errors.BadRequestError('student phone must be supplied'))
   }
 
@@ -171,10 +175,13 @@ server.post('/courses', function (req, res, next) {
   console.log('POST /courses body=>' + JSON.stringify(req.body));
   postCoursesCount++
   if (req.body.courseCode === undefined ) {
+    console.log('missing argument courses id');
     return next(new errors.BadRequestError('course id must be supplied'))
   }else if (req.body.shortDescription === undefined ) {
+    console.log('missing argument courses shortDescription');
     return next(new errors.BadRequestError('course shortDescription must be supplied'))
   }else if (req.body.fullDescription === undefined ) {
+    console.log('missing argument courses fullDescription');
     return next(new errors.BadRequestError('course fullDescription must be supplied'))
   }
  
@@ -195,10 +202,13 @@ server.post('/assignments', function (req, res, next) {
   console.log('POST /assignments body=>' + JSON.stringify(req.body));
   postAssignmentsCount++
   if (req.body.assignmentCode === undefined ) {
+    console.log('missing argument assignment id');
     return next(new errors.BadRequestError('assignment id must be supplied'))
   } else if (req.body.dueDate === undefined ) {
+    console.log('missing argument assignment duedate');
     return next(new errors.BadRequestError('assignment dueDate must be supplied'))
   } else if (req.body.title === undefined ) {
+    console.log('missing argument assignment title');
     return next(new errors.BadRequestError('assignment title must be supplied'))
   }
 
