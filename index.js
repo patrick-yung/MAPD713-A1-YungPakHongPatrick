@@ -241,7 +241,7 @@ server.post('/assignments', function (req, res, next) {
 
 
 server.get('/info', function (req, res, next) { 
-    console.log('INFO body=>' + JSON.stringify(req.body));
+    console.log('GET INFO body=>' + JSON.stringify(req.body));
     res.send(200,{
       "Number of Students ID Get Request": getStudentsCount,
       "Number of Courses ID Get Request": getCoursesCount,
