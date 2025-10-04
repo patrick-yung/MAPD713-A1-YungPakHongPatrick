@@ -51,7 +51,9 @@ server.del('/students/:id', function (req, res, next) {
   console.log('DEL /students params=>' + JSON.stringify(req.params));
   delStudentsCount++
   studentsSave.delete(req.params.id, function (error, user) {
-    if (error) return next(new Error(JSON.stringify(error.errors)))
+    if (error) {
+      console.log('Delete /students params=> Failed');
+      return next(new Error(JSON.stringify(error.errors)))}
     res.send(204)
   })
 })
@@ -59,7 +61,9 @@ server.del('/courses/:id', function (req, res, next) {
   console.log('DEL /courses params=>' + JSON.stringify(req.params));
   delCoursesCount++
   coursesSave.delete(req.params.id, function (error, user) {
-    if (error) return next(new Error(JSON.stringify(error.errors)))
+    if (error){ 
+      console.log('Delete /courses params=> Failed');
+      return next(new Error(JSON.stringify(error.errors)))}
     res.send(204)
   })
 })
@@ -68,7 +72,9 @@ server.del('/assignments/:id', function (req, res, next) {
   console.log('DEL /assignments params=>' + JSON.stringify(req.params));
   delAssignmentsCount++
   assignmentsSave.delete(req.params.id, function (error, user) {
-    if (error) return next(new Error(JSON.stringify(error.errors)))
+    if (error){ 
+      console.log('Delete /assignments params=> Failed');
+      return next(new Error(JSON.stringify(error.errors)))}
     res.send(204)
   })
 })
