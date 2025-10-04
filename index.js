@@ -264,13 +264,3 @@ server.get('/info', function (req, res, next) {
 
 
 
-// Update a user by their id
-server.put('/students/:id', function (req, res, next) { 
-})
-
-// Delete user with the given id
-server.del('/users/:id', function (req, res, next) {
- 
-})
-
-
