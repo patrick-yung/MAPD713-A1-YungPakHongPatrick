@@ -84,6 +84,8 @@ server.get('/students/:id', (req, res, next) => {
       res.send(user)
     } else {
       res.send(404)
+      console.log('GET /students params=> Failed to find assignment with id ' + req.params.id);
+
     }
   })
 })
@@ -97,6 +99,7 @@ server.get('/courses/:id', (req, res, next) => {
       res.send(user)
     } else {
       res.send(404)
+      console.log('GET /courses params=> Failed to find assignment with id ' + req.params.id);
     }
   })
 })
@@ -109,6 +112,7 @@ server.get('/assignments/:id', (req, res, next) => {
     if (user) {
       res.send(user)
     } else {
+      console.log('GET /assignments params=> Failed to find assignment with id ' + req.params.id);
       res.send(404)
     }
   })
